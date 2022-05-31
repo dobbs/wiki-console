@@ -1,10 +1,16 @@
-const {BrowserWindow} = require('electron')
+const {app, BrowserWindow, ipcMain} = require('electron')
 const path = require('path')
+
+const Store = require('electron-store');
+Store.initRenderer();
+app.on('ready', () => {
+  ipcMain.handle('getPath:userData', () => app.getPath('userData'))
+})
+
 const preferences = {
   open() {
     let window = BrowserWindow.getAllWindows().find(W => W.title == "Preferences")
     if (window) {
-      console.log("already have Preferences window")
       window.show()
       window.moveTop()
       return
