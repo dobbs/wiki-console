@@ -17,13 +17,13 @@ const preferences = {
     }
     window = new BrowserWindow({
       height: 300,
-      width: 900,
+      width: 400,
       webPreferences: {
         preload: path.join(__dirname, 'preload.js')
       },
     })
     window.loadFile(path.join(__dirname, 'index.html'))
-    window.webContents.openDevTools()
+    //window.webContents.openDevTools()
   }
 }
 
