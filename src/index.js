@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu } = require('electron')
+const { app, BrowserWindow, Menu, ipcMain } = require('electron')
 const path = require('path')
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -55,7 +55,20 @@ app.setAboutPanelOptions({
 
 const preferences = require("./preferences/window.js")
 
-module.exports = preferences
+const Store = require('electron-store');
+Store.initRenderer();
+
+app.on('ready', () => {
+  const {fork} = require('child_process')
+  const path = require('path')
+
+  console.log("ready", {parent:"HERE"})
+  const P = fork(path.join(__dirname, "./wiki.js"), {
+    stdio: 'pipe'
+  })
+  P.stdout.on('data', (d) => console.log({wiki: d.toString()}))
+  P.stderr.on('data', (d) => console.error({wiki: d.toString()}))
+})
 
 function createApplicationMenu() {
   return Menu.buildFromTemplate([

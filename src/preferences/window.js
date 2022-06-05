@@ -1,11 +1,5 @@
-const {app, BrowserWindow, ipcMain} = require('electron')
+const {BrowserWindow} = require('electron')
 const path = require('path')
-
-const Store = require('electron-store');
-Store.initRenderer();
-app.on('ready', () => {
-  ipcMain.handle('getPath:userData', () => app.getPath('userData'))
-})
 
 const preferences = {
   open() {
