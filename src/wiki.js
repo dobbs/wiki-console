@@ -5,8 +5,3 @@ const {config, owner} = require("./config.js")
 
 const wiki = farm(config.store)
 console.log("wiki HERE!", {config: config.store, owner: owner.store})
-process.on("exit", () => {
-  if (wiki != null) {
-    wiki.kill()
-  }
-})

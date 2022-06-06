@@ -1,6 +1,6 @@
 const {contextBridge} = require('electron')
 const Store = require('electron-store')
-const {config, owner, serialize} = require('../config.js')
+const {serialize} = require('../config.js')
 const configStore = new Store({
   serialize,
   name: "config"
